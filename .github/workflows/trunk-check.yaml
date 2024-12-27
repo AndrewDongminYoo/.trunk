@@ -1,21 +1,17 @@
 name: Trunk Check
-run-name: ${{ fromJSON(inputs.payload).checkWorkflowRunName }}
+
 on:
   workflow_dispatch:
-    inputs:
-      payload:
-        description: For invocation by Trunk Check
-        required: false
 
 permissions:
   contents: read
 
 jobs:
   check:
-    name: ${{ fromJSON(inputs.payload).checkJobName }}
-    runs-on: ${{ fromJSON(inputs.payload).checkJobRunsOn }}
+    name: Trunk Check Job
+    runs-on: ubuntu-latest
     concurrency:
-      group: ${{ fromJSON(inputs.payload).concurrencyGroup }}
+      group: trunk-check-group
       cancel-in-progress: true
 
     steps:
